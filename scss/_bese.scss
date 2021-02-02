@@ -8,6 +8,7 @@ body,
 .inp {
     direction: rtl;
     font-family: $font-main;
+    background-color: inherit;
 }
 
 @mixin inputText {
