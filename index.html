@@ -9,6 +9,7 @@
     <title>RM</title>
     <link rel="stylesheet" href="./css/style.min.css">
     <link rel="stylesheet" href="./css/materialdesignicons.min.css">
+    <link rel="stylesheet" href="./css/animation.css">
 </head>
 
 <body>
@@ -36,14 +37,16 @@
                     <button class="btn mdi mdi-heart" title="لایک"></button>
                     <button class="btn mdi mdi-eye" title="یازدید"></button>
                     <button class="btn mdi mdi-folder" title="آرشیو"></button>
-                    <button class="btn mdi mdi-delete" title="حذف"></button>
+                    <button class="btn mdi mdi-eraser" title="پاک کردن"></button>
 
                 </div>
                 <input type="button" value="ارسال" class="btn">
                 <hr>
             </div>
 
-            <div class="read">
+            <div class="read animate__animated wow animate__fadeInUp">
+
+
                 <div class="boxText" id='1'>
                     <h4>موضوع</h4>
                     <span class="more mdi mdi-dots-vertical" onclick="toggleBoxMore(1)"></span>
@@ -60,7 +63,7 @@
                         حروفچینی دستاوردهای اصلی، و جوابگوی سوالات پیوسته اهل دنیای موجود طراحی اساسا مورد استفاده قرار
                         گیرد.</p>
 
-                    <div class="boxMore hidden">
+                    <div class="boxMore">
                         <button class="btn mdi mdi-heart" title="لایک"></button>
                         <button class="btn mdi mdi-eye" title="یازدید"></button>
                         <button class="btn mdi mdi-folder" title="آرشیو"></button>
@@ -68,7 +71,7 @@
                     </div>
                 </div>
 
-                <div class="boxText" id='1'>
+                <div class="boxText" id='2'>
                     <h4>موضوع</h4>
                     <span class="more mdi mdi-dots-vertical" onclick="toggleBoxMore(2)"></span>
                     <p>لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ، و با استفاده از طراحان گرافیک است،
@@ -84,7 +87,7 @@
                         حروفچینی دستاوردهای اصلی، و جوابگوی سوالات پیوسته اهل دنیای موجود طراحی اساسا مورد استفاده قرار
                         گیرد.</p>
 
-                    <div class="boxMore hidden">
+                    <div class="boxMore">
                         <button class="btn mdi mdi-heart" title="لایک"></button>
                         <button class="btn mdi mdi-eye" title="یازدید"></button>
                         <button class="btn mdi mdi-folder" title="آرشیو"></button>
@@ -92,7 +95,7 @@
                     </div>
                 </div>
 
-                <div class="boxText" id='1'>
+                <div class="boxText" id='3'>
                     <h4>موضوع</h4>
                     <span class="more mdi mdi-dots-vertical" onclick="toggleBoxMore(3)"></span>
                     <p>لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ، و با استفاده از طراحان گرافیک است،
@@ -108,14 +111,13 @@
                         حروفچینی دستاوردهای اصلی، و جوابگوی سوالات پیوسته اهل دنیای موجود طراحی اساسا مورد استفاده قرار
                         گیرد.</p>
 
-                    <div class="boxMore hidden">
+                    <div class="boxMore">
                         <button class="btn mdi mdi-heart" title="لایک"></button>
                         <button class="btn mdi mdi-eye" title="یازدید"></button>
                         <button class="btn mdi mdi-folder" title="آرشیو"></button>
                         <button class="btn mdi mdi-delete" title="حذف"></button>
                     </div>
                 </div>
-
 
 
             </div>
@@ -127,7 +129,10 @@
 
 
     <script src="./js/app.js"></script>
-
+    <script src="./js/wow.js"></script>
+    <script>
+        new WOW().init();
+    </script>
 </body>
 
 </html>
