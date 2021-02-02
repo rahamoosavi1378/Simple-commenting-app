@@ -1,0 +1,206 @@
+#app {
+    display: flex;
+    width: 100%;
+    height: 100vh;
+    justify-content: center;
+    align-items: center;
+    background-color: $bg-main;
+
+    .container {
+        // border-radius: 10px;
+        width: 90%;
+        height: 90vh;
+        background-color: $bg-book;
+        overflow-y: scroll;
+
+        display: flex;
+        flex-direction: column;
+
+        .write {
+            width: 100%;
+            padding: 15px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+
+            input[type="text"] {
+                @include inputText;
+                padding: 1px 10px 0;
+            }
+
+            textarea {
+                @include inputText;
+                padding: 10px 10px 0;
+            }
+
+            .op {
+                pointer-events: none;
+                margin: 15px 0;
+                display: flex;
+
+                .btn {
+                    border: none;
+                    outline: none;
+                    font-size: 40px;
+                    color: $color-options;
+                    pointer-events: auto;
+                    cursor: pointer;
+                    line-height: 0;
+                    padding: 0 5px;
+                }
+
+                .mdi-heart:hover {
+                    color: #ff4444;
+                }
+                .mdi-eye:hover {
+                    color: #4476ff;
+                }
+                .mdi-folder:hover {
+                    color: #ffb444;
+                }
+                .mdi-delete:hover {
+                    color: #ff2d2d;
+                }
+
+                .dir {
+                    margin: 0 5px;
+                    pointer-events: auto;
+                    cursor: pointer !important;
+                    width: 70px;
+                    display: flex;
+                    justify-content: baseline;
+                    align-items: center;
+                    border: 1px solid gray;
+                    border-radius: 8px;
+                    background-color: gray;
+                    color: #fff;
+                    overflow: hidden;
+
+                    &:hover {
+                        background-color: rgb(77, 77, 77);
+                    }
+
+                    .dir-text {
+                        padding: 2px 8px;
+                        background-color: #fff;
+                        color: gray;
+
+                        &::selection {
+                            color: none;
+                            background: none;
+                        }
+                    }
+
+                    .dir-view {
+                        padding: 2px 8px;
+                        line-height: 20px;
+                    }
+                }
+            }
+
+            input[type="button"] {
+                border: none;
+                outline: none;
+                cursor: pointer;
+                background-color: #18ce45;
+                color: #fff;
+                padding: 10px;
+                font-size: 1rem;
+                align-self: center;
+                width: 80%;
+                margin: 15px;
+
+                &:hover {
+                    background-color: #15ad3b;
+                }
+            }
+            hr {
+                align-self: stretch;
+            }
+        }
+
+        .read {
+            width: 100%;
+            padding: 15px;
+
+            .boxText {
+                border: 1px solid gray;
+                margin-bottom: 5px;
+                padding: 3px 10px;
+                display: flex;
+                flex-direction: column;
+                position: relative;
+
+                h4 {
+                    display: inline-block;
+                    line-height: 40px;
+                    color: #345ed3;
+                    font-size: large;
+                }
+
+                .more {
+                    position: absolute;
+                    left: 0;
+                    top: 0;
+                    padding: 1px 5px;
+                    background-color: rgba(0, 0, 0, 0.089);
+                    border-bottom-right-radius: 15px;
+                    cursor: pointer;
+                    font-size: 25px;
+                    z-index: 2;
+                }
+
+                p {
+                    text-align: justify;
+                }
+
+                .boxMore {
+                    z-index: 1;
+                    background-color: rgba(0, 0, 0, 0.486);
+                    color: #fff;
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    width: 100%;
+                    height: 100%;
+                    padding: 15px;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+
+                    .btn {
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+                        font-size: 40px;
+                        padding: 10px 15px;
+                        line-height: 50px;
+                        border-radius: 50%;
+                        border: none;
+                        outline: none;
+                        margin: 0 5px;
+                        color: gray;
+                        cursor: pointer;
+                    }
+
+                    .mdi-heart {
+                        color: #ff4444;
+                    }
+                    .mdi-eye {
+                        color: #4476ff;
+                    }
+                    .mdi-folder {
+                        color: #ffb444;
+                    }
+                    .mdi-delete {
+                        color: #ff2d2d;
+                    }
+                }
+
+                .hidden {
+                    display: none;
+                }
+            }
+        }
+    }
+}

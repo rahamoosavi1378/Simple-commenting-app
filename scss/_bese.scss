@@ -1,0 +1,20 @@
+$font-main: Mikhak;
+$bg-main: #212121;
+$bg-book: #eee;
+$color-options: gray;
+
+body,
+.btn,
+.inp {
+    direction: rtl;
+    font-family: $font-main;
+}
+
+@mixin inputText {
+    width: 80%;
+    border: none;
+    border-right: 5px solid #3a7;
+    outline: none;
+    font-size: large;
+    margin-bottom: 15px;
+}
