@@ -4,6 +4,53 @@ const lang = document.querySelector("#lang");
 const align = document.querySelector("#align");
 const title = document.querySelector("#title");
 const comment = document.querySelector("#comment");
+const url =
+    "https://simple-commenting-app-781d9-default-rtdb.firebaseio.com/comments.json";
+
+const read = document.querySelector(".read");
+
+let btnSend = document.querySelector("#btnSend");
+
+btnSend.addEventListener("click", () => {
+    const comList_ = {
+        title: false,
+        comment: false,
+        lang: "FA",
+    };
+
+    let comList = comList_;
+
+    if (title.value == "") {
+        alert("بدون موضوع نمیشه که :(");
+    } else {
+        comList["title"] = title.value;
+    }
+    if (comment.value == "") {
+        alert("نظرتو بنویس :(");
+    } else {
+        comList["comment"] = comment.value;
+    }
+
+    comList["lang"] = lang.innerText;
+
+    if ((comList.title == false) & (comList.comment == false)) {
+        console.log("مقادیر رو پر نکردی ک :(");
+    } else {
+        axios
+            .post(url, {
+                data: comList,
+            })
+            .then((res) => {
+                console.log(res);
+                read.innerHTML = "";
+                loadComment();
+                eraser.click();
+            })
+            .catch((err) => {
+                console.error(err);
+            });
+    }
+});
 
 let toggleLanguage = () => {
     let lan = lang.querySelector(".dir-text");
@@ -29,7 +76,6 @@ let toggleLanguage = () => {
 let toggleAlineText = () => {
     let text = align.querySelector(".dir-text");
     let view = align.querySelector(".dir-view");
-    console.log(view);
     if (text.innerText == "rtl") {
         text.innerText = "ltr";
         title.style.direction = comment.style.direction = "ltr";
@@ -45,13 +91,11 @@ let toggleAlineText = () => {
             "mdi-format-align-right"
         );
     }
-
-    console.log(text, view);
 };
 
 function toggleBoxMore(id = null) {
-    let boxMore_ = boxMore[--id];
-    console.log(boxMore_);
+    // console.log(id);
+    let boxMore_ = id.querySelector(".boxMore");
     // boxMore_.classList.toggle("hidden");
     setTimeout(() => {
         boxMore_.classList.toggle("boxMoretoggle");
@@ -98,3 +142,30 @@ folder.addEventListener("click", () => {
         console.log("lol");
     }, 1000);
 });
+
+function loadComment() {
+    axios
+        .get(url)
+        .then((res) => {
+            for (const item in res.data) {
+                let post = res.data[item].data;
+                let item_ = item.split("-");
+                let item__ = item_[1];
+                read.innerHTML += `<div class="boxText" id='${item__}'>
+                    <h4>${post.title}</h4>
+                    <span class="more mdi mdi-dots-vertical" onclick="toggleBoxMore(${item__})"></span>
+                    <p>${post.comment}</p>
+
+                    <div class="boxMore">
+                        <button class="btn mdi mdi-heart" title="لایک"></button>
+                        <button class="btn mdi mdi-eye" title="یازدید"></button>
+                        <button class="btn mdi mdi-folder" title="آرشیو"></button>
+                        <button class="btn mdi mdi-delete" title="حذف"></button>
+                    </div>
+                </div>`;
+            }
+        })
+        .catch((err) => {
+            // console.log(err);
+        });
+}
