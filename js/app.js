@@ -188,15 +188,16 @@ function loadComment() {
 function removePost(id) {
     let url_ = `${url}comments/-${id.getAttribute("id")}`;
     console.log(url_);
-    axios
-        .delete(url_, {
-            data: `-${id.getAttribute("id")}`,
-        })
-        .then((res) => {
-            console.log(res);
-            loadComment();
-        })
-        .catch((err) => {
-            console.log(err);
-        });
+    alert("LOL");
+    // axios
+    //     .delete(url_, {
+    //         data: `-${id.getAttribute("id")}`,
+    //     })
+    //     .then((res) => {
+    //         console.log(res);
+    //         loadComment();
+    //     })
+    //     .catch((err) => {
+    //         console.log(err);
+    //     });
 }
