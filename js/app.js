@@ -4,20 +4,22 @@ const lang = document.querySelector("#lang");
 const align = document.querySelector("#align");
 const title = document.querySelector("#title");
 const comment = document.querySelector("#comment");
-const url =
-    "https://simple-commenting-app-781d9-default-rtdb.firebaseio.com/comments.json";
+const url = "https://simple-commenting-app-781d9-default-rtdb.firebaseio.com/";
 
 const read = document.querySelector(".read");
 
 let btnSend = document.querySelector("#btnSend");
 
-btnSend.addEventListener("click", () => {
-    const comList_ = {
-        title: false,
-        comment: false,
-        lang: "FA",
-    };
+const comList_ = {
+    title: false,
+    comment: false,
+    lang: "FA",
+    like: false,
+    view: true,
+    archive: false,
+};
 
+btnSend.addEventListener("click", () => {
     let comList = comList_;
 
     if (title.value == "") {
@@ -37,11 +39,10 @@ btnSend.addEventListener("click", () => {
         console.log("مقادیر رو پر نکردی ک :(");
     } else {
         axios
-            .post(url, {
+            .post(url + "comments.json", {
                 data: comList,
             })
             .then((res) => {
-                console.log(res);
                 read.innerHTML = "";
                 loadComment();
                 eraser.click();
@@ -94,9 +95,7 @@ let toggleAlineText = () => {
 };
 
 function toggleBoxMore(id = null) {
-    // console.log(id);
     let boxMore_ = id.querySelector(".boxMore");
-    // boxMore_.classList.toggle("hidden");
     setTimeout(() => {
         boxMore_.classList.toggle("boxMoretoggle");
     }, 200);
@@ -117,6 +116,7 @@ let heart = document.querySelector(".mdi-heart");
 heart.addEventListener("click", () => {
     heart.classList.add("animate__animated", "animate__bounceIn");
     heart.classList.toggle("mdi-heart-ative");
+    comList_.like = comList_.like == false ? true : false;
     setTimeout(() => {
         heart.classList.remove("animate__animated", "animate__bounceIn");
         console.log("lol");
@@ -127,6 +127,7 @@ let eye = document.querySelector(".mdi-eye");
 eye.addEventListener("click", () => {
     eye.classList.add("animate__animated", "animate__bounceIn");
     eye.classList.toggle("mdi-eye-active");
+    comList_.view = comList_.view == true ? false : true;
     setTimeout(() => {
         eye.classList.remove("animate__animated", "animate__bounceIn");
         console.log("lol");
@@ -137,35 +138,65 @@ let folder = document.querySelector(".mdi-folder");
 folder.addEventListener("click", () => {
     folder.classList.add("animate__animated", "animate__bounceIn");
     folder.classList.toggle("mdi-folder-active");
+    console.log(comList_.archive);
+    comList_.archive = comList_.archive == false ? true : false;
     setTimeout(() => {
         folder.classList.remove("animate__animated", "animate__bounceIn");
-        console.log("lol");
     }, 1000);
 });
 
 function loadComment() {
     axios
-        .get(url)
+        .get(url + "comments.json")
         .then((res) => {
-            for (const item in res.data) {
-                let post = res.data[item].data;
-                let item_ = item.split("-");
-                let item__ = item_[1];
-                read.innerHTML += `<div class="boxText" id='${item__}'>
+            if (!res.data) {
+                read.innerHTML = `<div class="pure">
+                    <span>هیچ کامنتی وجود نداره ک ! 😕 </span><br>
+                    <span>اولین کامنتت رو واسم بنویس 😃</span>
+                </div>`;
+            } else {
+                for (const item in res.data) {
+                    let post = res.data[item].data;
+                    let item_ = item.split("-");
+                    let item__ = item_[1];
+                    read.innerHTML += `<div class="boxText" id='${item__}'>
                     <h4>${post.title}</h4>
                     <span class="more mdi mdi-dots-vertical" onclick="toggleBoxMore(${item__})"></span>
                     <p>${post.comment}</p>
-
+                    
                     <div class="boxMore">
-                        <button class="btn mdi mdi-heart" title="لایک"></button>
-                        <button class="btn mdi mdi-eye" title="یازدید"></button>
-                        <button class="btn mdi mdi-folder" title="آرشیو"></button>
-                        <button class="btn mdi mdi-delete" title="حذف"></button>
+                    <button class="btn mdi mdi-heart ${
+                        post.like == true ? "mdi-heart-ative" : ""
+                    }" title="لایک"></button>
+                    <button class="btn mdi mdi-eye ${
+                        post.view == true ? "mdi-eye-ative" : ""
+                    }" title="یازدید"></button>
+                    <button class="btn mdi mdi-folder ${
+                        post.archive == true ? "mdi-folder-ative" : ""
+                    }" title="آرشیو"></button>
+                    <button class="btn mdi mdi-delete" title="حذف" onclick="removePost(${item__})"></button>
                     </div>
-                </div>`;
+                    </div>`;
+                }
             }
         })
         .catch((err) => {
             // console.log(err);
+        });
+}
+
+function removePost(id) {
+    let url_ = `${url}comments/-${id.getAttribute("id")}`;
+    console.log(url_);
+    axios
+        .delete(url_, {
+            data: `-${id.getAttribute("id")}`,
+        })
+        .then((res) => {
+            console.log(res);
+            loadComment();
+        })
+        .catch((err) => {
+            console.log(err);
         });
 }
