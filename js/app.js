@@ -191,7 +191,7 @@ btnSend.addEventListener("click", () => {
                 eraser.click();
                 setTimeout(() => {
                     loadComment();
-                }, 1000);
+                }, 5000);
             })
             .catch((err) => {
                 console.log(err);
