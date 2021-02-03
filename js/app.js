@@ -149,6 +149,7 @@ function loadComment() {
     axios
         .get(url + "comments.json")
         .then((res) => {
+            console.log(res.data);
             if (!res.data) {
                 read.innerHTML = `<div class="pure">
                     <span>هیچ کامنتی وجود نداره ک ! 😕 </span><br>
@@ -159,6 +160,11 @@ function loadComment() {
                     let post = res.data[item].data;
                     let item_ = item.split("-");
                     let item__ = item_[1];
+                    read.classList.add(
+                        "animate__animated",
+                        "wow",
+                        "animate__fadeInUp"
+                    );
                     read.innerHTML += `<div class="boxText" id='${item__}'>
                     <h4>${post.title}</h4>
                     <span class="more mdi mdi-dots-vertical" onclick="toggleBoxMore(${item__})"></span>

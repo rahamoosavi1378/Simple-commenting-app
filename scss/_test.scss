@@ -26,7 +26,8 @@
             background-color: rgba(255, 86, 86, 0.61);
             border-bottom-left-radius: 15px;
 
-            &:hover {
+            &:hover,
+            &:active {
                 background-color: rgb(224, 73, 73);
             }
 
