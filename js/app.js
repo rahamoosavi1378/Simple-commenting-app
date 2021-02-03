@@ -117,7 +117,8 @@ function loadComment() {
             if (!res.data) {
                 console.log("چیزی در بساط دیتابیسم نیس . دنبال چ هستی ؟ 😕");
             } else {
-                document.querySelector(".main_pure").classList.add("hidden");
+                read.innerHTML = "";
+                // document.querySelector(".main_pure").classList.add("hidden");
                 for (const item in res.data) {
                     let post = res.data[item].data;
                     let item_ = item.split("-");
@@ -191,10 +192,13 @@ btnSend.addEventListener("click", () => {
                 eraser.click();
                 setTimeout(() => {
                     loadComment();
-                }, 5000);
+                }, 500);
             })
             .catch((err) => {
                 console.log(err);
+                alert(
+                    "در ارسال اطلاعات مشکلی پیش آمده است 😢 \n اینترنتت رو چک کن و دوباره تلاش کن"
+                );
             });
     }
 });
