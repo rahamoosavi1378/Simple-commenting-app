@@ -19,40 +19,6 @@ const comList_ = {
     archive: false,
 };
 
-btnSend.addEventListener("click", () => {
-    let comList = comList_;
-
-    if (title.value == "") {
-        alert("بدون موضوع نمیشه که :(");
-    } else {
-        comList["title"] = title.value;
-    }
-    if (comment.value == "") {
-        alert("نظرتو بنویس :(");
-    } else {
-        comList["comment"] = comment.value;
-    }
-
-    comList["lang"] = lang.innerText;
-
-    if ((comList.title == false) & (comList.comment == false)) {
-        console.log("مقادیر رو پر نکردی ک :(");
-    } else {
-        axios
-            .post(url + "comments.json", {
-                data: comList,
-            })
-            .then((res) => {
-                read.innerHTML = "";
-                loadComment();
-                eraser.click();
-            })
-            .catch((err) => {
-                console.error(err);
-            });
-    }
-});
-
 let toggleLanguage = () => {
     let lan = lang.querySelector(".dir-text");
     if (lan.innerText == "FA") {
@@ -130,7 +96,6 @@ eye.addEventListener("click", () => {
     comList_.view = comList_.view == true ? false : true;
     setTimeout(() => {
         eye.classList.remove("animate__animated", "animate__bounceIn");
-        console.log("lol");
     }, 1000);
 });
 
@@ -149,13 +114,10 @@ function loadComment() {
     axios
         .get(url + "comments.json")
         .then((res) => {
-            console.log(res.data);
             if (!res.data) {
-                read.innerHTML = `<div class="pure">
-                    <span>هیچ کامنتی وجود نداره ک ! 😕 </span><br>
-                    <span>اولین کامنتت رو واسم بنویس 😃</span>
-                </div>`;
+                console.log("چیزی در بساط دیتابیسم نیس . دنبال چ هستی ؟ 😕");
             } else {
+                document.querySelector(".main_pure").classList.add("hidden");
                 for (const item in res.data) {
                     let post = res.data[item].data;
                     let item_ = item.split("-");
@@ -184,17 +146,59 @@ function loadComment() {
                     </div>
                     </div>`;
                 }
+                if (window.innerWidth >= 800) {
+                    read.style.overflowY = "scroll";
+                }
             }
         })
         .catch((err) => {
-            // console.log(err);
+            console.log(err);
+            alert(
+                "یا اینترنتت قطعه یا مشکل اینترنتی داری یا فیلتر شکنت خاموشه . 😑"
+            );
         });
 }
+
+btnSend.addEventListener("click", () => {
+    let comList = comList_;
+
+    if (title.value == false) {
+        alert("بدون موضوع نمیشه که :(");
+    } else {
+        comList["title"] = title.value;
+    }
+    if (comment.value == false) {
+        alert("نظرتو بنویس :(");
+    } else {
+        comList["comment"] = comment.value;
+    }
+
+    comList["lang"] = lang.innerText;
+
+    if ((comList.title == false) & (comList.comment == false)) {
+        console.log("مقادیر رو پر نکردی ک :(");
+    } else {
+        axios
+            .post(url + "comments.json", {
+                data: comList,
+            })
+            .then((res) => {
+                read.innerHTML = "";
+                eraser.click();
+                setTimeout(() => {
+                    loadComment();
+                }, 1000);
+            })
+            .catch((err) => {
+                console.log(err);
+            });
+    }
+});
 
 function removePost(id) {
     let url_ = `${url}comments/-${id.getAttribute("id")}`;
     console.log(url_);
-    alert("LOL");
+    alert(" LOL 😂");
     // axios
     //     .delete(url_, {
     //         data: `-${id.getAttribute("id")}`,
