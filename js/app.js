@@ -127,9 +127,13 @@ function loadComment() {
                         "wow",
                         "animate__fadeInUp"
                     );
-                    read.innerHTML += `<div class="boxText" id='${item__}'>
+                    read.innerHTML += `<div class="boxText ${
+                        post.lang == "EN" ? "ltr" : ""
+                    }" id='${item__}'>
                     <h4>${post.title}</h4>
-                    <span class="more mdi mdi-dots-vertical" onclick="toggleBoxMore(${item__})"></span>
+                    <span class="more mdi mdi-dots-vertical ${
+                        post.lang == "EN" ? "more-ltr" : ""
+                    }" onclick="toggleBoxMore(${item__})"></span>
                     <p>${post.comment}</p>
                     
                     <div class="boxMore">

@@ -207,13 +207,20 @@
                 .more {
                     position: absolute;
                     left: 0;
+                    right: auto;
                     top: 0;
                     padding: 1px 5px;
                     background-color: rgba(0, 0, 0, 0.089);
-                    border-bottom-right-radius: 15px;
+                    border-radius: 0 0 15px 0;
                     cursor: pointer;
                     font-size: 25px;
                     z-index: 2;
+                }
+
+                .more-ltr {
+                    left: auto;
+                    right: 0;
+                    border-radius: 0 0 0 15px;
                 }
 
                 p {
@@ -282,6 +289,10 @@
                 .boxMoretoggle {
                     opacity: 1;
                 }
+            }
+
+            .ltr {
+                direction: ltr;
             }
 
             .main_pure {
