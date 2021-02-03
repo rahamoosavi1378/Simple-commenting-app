@@ -212,7 +212,7 @@
                     padding: 15px;
                     display: flex;
                     justify-content: center;
-                    align-items: center;
+                    align-items: flex-start;
                     flex-direction: row;
                     flex-wrap: nowrap;
                     flex-grow: 500px;
@@ -220,7 +220,7 @@
                     transition: opacity 200ms;
 
                     @media (max-width: 425px) {
-                        flex-direction: column;
+                        // flex-direction: column;
                     }
 
                     .btn {
