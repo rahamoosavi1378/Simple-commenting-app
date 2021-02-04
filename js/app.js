@@ -102,7 +102,6 @@ let folder = document.querySelector(".mdi-folder");
 folder.addEventListener("click", () => {
     folder.classList.add("animate__animated", "animate__bounceIn");
     folder.classList.toggle("mdi-folder-active");
-    console.log(comList_.archive);
     comList_.archive = comList_.archive == false ? true : false;
     setTimeout(() => {
         folder.classList.remove("animate__animated", "animate__bounceIn");
@@ -131,17 +130,17 @@ function loadComment() {
                 }
                 arrPost.reverse();
 
-                read.classList.add(
-                    "animate__animated",
-                    "wow",
-                    "animate__fadeInUp"
-                );
-
                 for (const i in arrPost) {
                     let post = arrPost[i][1].data;
                     let item = arrPost[i][0];
                     let item_ = item.split("-");
                     let item__ = item_[1];
+
+                    read.classList.add(
+                        "animate__animated",
+                        "wow",
+                        "animate__fadeInUp"
+                    );
 
                     read.innerHTML += `<div class="boxText ${
                         post.lang == "EN" ? "ltr" : ""
@@ -166,6 +165,14 @@ function loadComment() {
                     </div>
                     </div>`;
                 }
+
+                setTimeout(() => {
+                    read.classList.remove(
+                        "animate__animated",
+                        "wow",
+                        "animate__fadeInUp"
+                    );
+                }, 1000);
 
                 /*
                     let post = res.data[item].data;
