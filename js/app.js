@@ -61,6 +61,7 @@ let toggleAlineText = () => {
 };
 
 function toggleBoxMore(id = null) {
+    console.log(id);
     let boxMore_ = id.querySelector(".boxMore");
     setTimeout(() => {
         boxMore_.classList.toggle("boxMoretoggle");
@@ -85,7 +86,6 @@ heart.addEventListener("click", () => {
     comList_.like = comList_.like == false ? true : false;
     setTimeout(() => {
         heart.classList.remove("animate__animated", "animate__bounceIn");
-        console.log("lol");
     }, 1000);
 });
 
@@ -121,22 +121,28 @@ function loadComment() {
                 arr.reverse();
             }
 
-            // console.log(arr);
-
             if (!res.data) {
                 console.log("چیزی در بساط دیتابیسم نیس . دنبال چ هستی ؟ 😕");
             } else {
                 read.innerHTML = "";
                 // document.querySelector(".main_pure").classList.add("hidden");
                 let arrPost = [];
-                let arr = [];
                 for (const item in res.data) {
-                    arrPost.push([res.data[item]]);
+                    arrPost.push([item, res.data[item]]);
                 }
                 arrPost.reverse();
 
-                for (const item in arrPost) {
-                    let post = arrPost[item][0].data;
+                console.log(arrPost);
+
+                read.classList.add(
+                    "animate__animated",
+                    "wow",
+                    "animate__fadeInUp"
+                );
+
+                for (const i in arrPost) {
+                    let post = arrPost[i][1].data;
+                    let item = arrPost[i][0];
                     let item_ = item.split("-");
                     let item__ = item_[1];
 
