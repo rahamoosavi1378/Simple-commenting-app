@@ -114,12 +114,57 @@ function loadComment() {
     axios
         .get(url + "comments.json")
         .then((res) => {
+            //
+            let arr = [];
+            for (const item in res.data) {
+                arr.push([res.data[item]]);
+                arr.reverse();
+            }
+
+            // console.log(arr);
+
             if (!res.data) {
                 console.log("چیزی در بساط دیتابیسم نیس . دنبال چ هستی ؟ 😕");
             } else {
                 read.innerHTML = "";
                 // document.querySelector(".main_pure").classList.add("hidden");
+                let arrPost = [];
+                let arr = [];
                 for (const item in res.data) {
+                    arrPost.push([res.data[item]]);
+                }
+                arrPost.reverse();
+
+                for (const item in arrPost) {
+                    let post = arrPost[item][0].data;
+                    let item_ = item.split("-");
+                    let item__ = item_[1];
+
+                    read.innerHTML += `<div class="boxText ${
+                        post.lang == "EN" ? "ltr" : ""
+                    }" id='${item__}'>
+                    <h4>${post.title}</h4>
+                    <span class="more mdi mdi-dots-vertical ${
+                        post.lang == "EN" ? "more-ltr" : ""
+                    }" onclick="toggleBoxMore(${item__})"></span>
+                    <p>${post.comment}</p>
+                    
+                    <div class="boxMore">
+                    <button class="btn mdi mdi-heart ${
+                        post.like == true ? "mdi-heart-ative" : ""
+                    }" title="لایک"></button>
+                    <button class="btn mdi mdi-eye ${
+                        post.view == true ? "mdi-eye-ative" : ""
+                    }" title="یازدید"></button>
+                    <button class="btn mdi mdi-folder ${
+                        post.archive == true ? "mdi-folder-ative" : ""
+                    }" title="آرشیو"></button>
+                    <button class="btn mdi mdi-delete" title="حذف" onclick="removePost(${item__})"></button>
+                    </div>
+                    </div>`;
+                }
+
+                /*
                     let post = res.data[item].data;
                     let item_ = item.split("-");
                     let item__ = item_[1];
@@ -149,11 +194,16 @@ function loadComment() {
                     }" title="آرشیو"></button>
                     <button class="btn mdi mdi-delete" title="حذف" onclick="removePost(${item__})"></button>
                     </div>
-                    </div>`;
-                }
+                    </div>`; */
+
                 if (window.innerWidth >= 800) {
                     read.style.overflowY = "scroll";
                 }
+                read.classList.add(
+                    "animate__animated",
+                    "wow",
+                    "animate__fadeInUp"
+                );
             }
         })
         .catch((err) => {
@@ -164,24 +214,28 @@ function loadComment() {
         });
 }
 
-btnSend.addEventListener("click", () => {
+btnSend.addEventListener("click", function () {
     let comList = comList_;
 
     if (title.value == false) {
         alert("بدون موضوع نمیشه که :(");
+        title.value = "";
+        comList.title = false;
     } else {
-        comList["title"] = title.value;
+        comList.title = title.value;
     }
     if (comment.value == false) {
-        alert("نظرتو بنویس :(");
+        alert("نظرتو بنویس 😕");
+        comment.value = "";
+        comList.comment = false;
     } else {
-        comList["comment"] = comment.value;
+        comList.comment = comment.value;
     }
 
     comList["lang"] = lang.innerText;
 
-    if ((comList.title == false) & (comList.comment == false)) {
-        console.log("مقادیر رو پر نکردی ک :(");
+    if ((comList.title == false) | (comList.comment == false)) {
+        console.log("مقادیر رو پر نکردی ک 😕");
     } else {
         axios
             .post(url + "comments.json", {
@@ -190,9 +244,9 @@ btnSend.addEventListener("click", () => {
             .then((res) => {
                 read.innerHTML = "";
                 eraser.click();
-                setTimeout(() => {
-                    loadComment();
-                }, 500);
+                // setTimeout(() => {
+                loadComment();
+                // }, 500);
             })
             .catch((err) => {
                 console.log(err);
