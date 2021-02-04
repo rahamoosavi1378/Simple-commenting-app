@@ -61,7 +61,6 @@ let toggleAlineText = () => {
 };
 
 function toggleBoxMore(id = null) {
-    console.log(id);
     let boxMore_ = id.querySelector(".boxMore");
     setTimeout(() => {
         boxMore_.classList.toggle("boxMoretoggle");
@@ -131,8 +130,6 @@ function loadComment() {
                     arrPost.push([item, res.data[item]]);
                 }
                 arrPost.reverse();
-
-                console.log(arrPost);
 
                 read.classList.add(
                     "animate__animated",
